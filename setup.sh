@@ -1,13 +1,22 @@
 #!/bin/bash
 
+# Set the GitHub repository URL
+repo_url="https://raw.githubusercontent.com/emre-koc/AiShell/main"
+
+# Set the destination directory
+dest_dir="$HOME/.aishell"
 
 # Store the current directory
 original_dir=$(pwd)
 
 # Create the ~/.aishell directory if it doesn't exist
-if [ ! -d "$HOME/.aishell" ]; then
-    mkdir "$HOME/.aishell"
+if [ ! -d "$dest_dir" ]; then
+    mkdir "$dest_dir"
 fi
+
+
+# Download the aishell.py file
+curl -fsSL "$repo_url/aishell.py" -o "$dest_dir/aishell.py"
 
 # Change to the ~/.aishell directory
 cd "$HOME/.aishell"
@@ -16,6 +25,7 @@ cd "$HOME/.aishell"
 if [ ! -d "vaishell" ]; then
     python3 -m venv vaishell
 fi
+
 
 # Copy the aishell.py file to the ~/.aishell directory
 cp aishell.py "$HOME/.aishell/"
