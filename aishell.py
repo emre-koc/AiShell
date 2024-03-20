@@ -194,7 +194,11 @@ def shell():
                     break
                 elif command.startswith('cd '):
                     directory = command.split(' ')[1]
-                    os.chdir(directory)
+                    #check if the directory exists
+                    if not os.path.exists(directory):
+                        console.print(Panel(f"Directory '{directory}' does not exist.", expand=False, style="bold red"))
+                    else:
+                        os.chdir(directory)
                 else:
                     result = subprocess.run(command, shell=True, capture_output=True, text=True)
                     if result.returncode == 0:
