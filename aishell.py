@@ -117,12 +117,25 @@ def execute_git_commit():
     if 'context' in commit_data:
         console.print(commit_data['context'])
 
-    confirm = input("Do you want to commit the changes? (y/n): ")
+    confirm = input("Do you want to commit the changes? (y/N): ")
     if confirm.lower() != "y":
         return
 
     # Execute the git commit command with the generated commit message
     subprocess.run(["git", "commit", "-m", commit_data['message']])
+
+    current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).decode("utf-8").strip()
+
+    # Prompt the user to push the changes to the remote repository
+    push_changes = input("Do you want to push the changes to the remote repository {current_branch}? (y/N): ")
+    if push_changes.lower() == "y":
+        # Get the name of the current branch
+
+        # Push the changes to the remote repository
+        subprocess.run(["git", "push", "origin", current_branch])
+        console.print("[bold green]Changes pushed to the remote repository.[/bold green]")
+    else:
+        console.print("[bold yellow]Changes committed locally but not pushed to the remote repository.[/bold yellow]")
 
 
 # Define the available commands and their completions
