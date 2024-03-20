@@ -127,7 +127,7 @@ def execute_git_commit():
     current_branch = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).decode("utf-8").strip()
 
     # Prompt the user to push the changes to the remote repository
-    push_changes = input("Do you want to push the changes to the remote repository {current_branch}? (y/N): ")
+    push_changes = input(f"Do you want to push the changes to the remote repository {current_branch}? (y/N): ")
     if push_changes.lower() == "y":
         # Get the name of the current branch
 
